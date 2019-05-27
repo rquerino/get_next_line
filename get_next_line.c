@@ -12,33 +12,61 @@
 
 #include "get_next_line.h"
 
-/* 
- ** pseudocode: 
+/*
+ ** 
+ ** 
+*/
+
+static int	ft_line_size(int fd, char **buff)
+{
+	int		size;
+	char	*tmp;
+	char	*bckp;
+
+	tmp = ft_strnew(BUFF_SIZE + 1);
+	while ((size = read(fd, tmp, BUFF_SIZE)) > 0)
+	{
+		bckp = buff[fd];
+		buff[fd] = ft_strjoin(buff[fd], tmp);
+		free(bckp);
+		if (!buff[fd])
+			ft_strdup(tmp);
+		ft_bzero(tmp, BUFF_SIZE);
+	}
+	free(tmp);
+	if (size)
+		return (1);
+	return (0);
+}
+
+/*
+ ** 
  **
- ** 
- ** 
  **
 */
 
-
-/*
- ** Stores the line on static array
- ** Returns 1 if there is more lines, 0 if end file.
-*/ 
-static int	ft_next_line(char **lines, char **line, int fd, int r)
+static int	ft_read_line(int fd, char **buff, char **line)
 {
-	int j;
+	char	*tmp;
+	char	*bckp;
 
-	size = 0;
-	while (line[fd][j] != '\n')
+	if ((tmp = ft_strchr(buff[fd], '\n'))
 	{
-		while ()
-		lines[fd][j] = line[fd][j];
-		j++;
+		bckp = buff[fd];
+		*tmp = '\0';
+		*line = ft_strdup(buff[fd]);
+		buff[fd] = ft_strdup(tmp + 1);
+		free(bckp);
+		return (1);
 	}
-	return (1);
+	if (*buff[fd])
+	{
+		*line = ft_strdup(buff[fd]);
+		buff[fd] = ft_strnew(BUFF_SIZE + 1);
+		return (1);
+	}
+	return (0);
 }
-
 /*
  ** Reads a file line by line.
  ** First parameter is the file descriptor used to read, second parameter 
@@ -52,24 +80,68 @@ static int	ft_next_line(char **lines, char **line, int fd, int r)
 int		get_next_line(const int fd, char **line)
 {
 	int			ret;
-	static char	*storage[8192];
+	static char	*buff[8192];
 	
-	if (fd < 0 || !line || BUFF_SIZE <= 0)
+	if (fd < 0 || !line || BUFF_SIZE <= 0 || ft_line_size(fd, &buff[fd]))
 		return (-1);
-	if (!storage[fd])
-		storage[fd] = ft_strnew(BUFF_SIZE);
-	*line = ft_strnew(0);
-	if (*storage[fd])
-		if (ft_next_line(storage[fd], line))
-			return (1);
-	while (ret = read(fd, storage[fd], BUFF_SIZE))
-	{
-		if (ret < 0)
-			return (-1);
-		if (ft_next_line(storage[fd], line))
-			return (1);
-	}
-	if (**line = 0)
+
+	if (ft_read_line(fd, &buff[fd], line))
 		return (1);
-	return (1);
+	return (0);
+}
+
+
+
+
+// EXAMPLE
+
+// Reads the size needed for the buffer
+// Detect the length of each line
+int		readlinewidth(int fd)
+{
+	char	buff[2];
+	size_t	nbread;
+
+	(void) memset((void*) buff, 0, (size_t) 2);
+	nbread = read(fd, (void*) buff, (size_t) 2);
+	if (nbread == -1 || nbread == 0)
+		return (-1);
+	return (atoi(buff));
+}
+
+
+// Reads of this size in a loop for each line
+void	readandprintlines(int fd, size_t linewidth)
+{
+	char	*buff;
+	size_t	nbread;
+
+	buff = (char *)malloc((linewidth + 1) * sizeof(*buff));
+	if (buff == NULL)
+		return ;
+	(void)memset((void*) buff, 0, linewidth + 1);
+	while ((nbread = read(fd, (void*) buff, linewidth)) != 0)
+	{
+		printf("%s", buff);
+		(void) memset((void*)buff, 0, linewidth);
+	}
+	free(buff);
+	return ;
+}
+
+//Example of main file without GET_NEXT_LINE
+int		example_main(void)
+{
+	int	fd;
+	int	linewidth;
+	
+	fd = open("file.txt", O_RDONLY);
+	if (fd == -1)
+		return (-1);
+	linewidth = readlinewidth(fd); //gets the line width from fd
+	if (linewidth == -1 || linewidth == 0)
+		return (-1);
+	readandprintlines(fd, (size_t) linewidth); //reads in loop for each line
+	close(fd);
+	return (0);
 }

@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rquerino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/18 12:39:37 by rquerino          #+#    #+#             */
-/*   Updated: 2019/06/06 10:36:30 by rquerino         ###   ########.fr       */
+/*   Created: 2019/05/07 13:03:50 by rquerino          #+#    #+#             */
+/*   Updated: 2019/05/14 18:03:12 by rquerino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# include "libft/libft.h"
-# include <stdlib.h>
-# include <unistd.h>
+#include "libft.h"
 
-# define BUFF_SIZE 32
+/*
+ ** Lexicographically Compare the strings s1 and s2.
+ ** Returns >0, <0 or 0 comparing unsigned char s1 - s2.
+*/
 
-int		get_next_line(const int fd, char **line);
+int		ft_strcmp(const char *s1, const char *s2)
+{
+	int i;
 
-#endif
+	i = 0;
+	while (*(s1 + i) && *(s1 + i) == *(s2 + i))
+		i++;
+	return (*((unsigned char *)s1 + i) - *((unsigned char *)s2 + i));
+}

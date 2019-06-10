@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rquerino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/18 12:39:37 by rquerino          #+#    #+#             */
-/*   Updated: 2019/06/06 10:36:30 by rquerino         ###   ########.fr       */
+/*   Created: 2019/05/07 15:29:34 by rquerino          #+#    #+#             */
+/*   Updated: 2019/05/15 10:43:29 by rquerino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# include "libft/libft.h"
-# include <stdlib.h>
-# include <unistd.h>
+#include "libft.h"
 
-# define BUFF_SIZE 32
+/*
+ ** Checks for any printable character including space.
+ ** Returns 1 if it's printable, 0 if it's not.
+*/
 
-int		get_next_line(const int fd, char **line);
-
-#endif
+int		ft_isprint(int c)
+{
+	if (c >= 32 && c <= 126)
+		return (1);
+	return (0);
+}

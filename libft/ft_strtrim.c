@@ -1,23 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rquerino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/18 12:39:37 by rquerino          #+#    #+#             */
-/*   Updated: 2019/06/06 10:36:30 by rquerino         ###   ########.fr       */
+/*   Created: 2019/05/08 10:17:33 by rquerino          #+#    #+#             */
+/*   Updated: 2019/05/16 17:11:37 by rquerino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# include "libft/libft.h"
-# include <stdlib.h>
-# include <unistd.h>
+#include "libft.h"
 
-# define BUFF_SIZE 32
+/*
+ ** Allocates with malloc and returns a fresh copy of s wihout spaces
+ ** at the start or end of the string.
+*/
 
-int		get_next_line(const int fd, char **line);
+char		*ft_strtrim(char const *s)
+{
+	int i;
+	int j;
 
-#endif
+	if (!s)
+		return (NULL);
+	i = ft_initial_spaces(s);
+	j = ft_final_spaces(s) - i;
+	if (j <= 0)
+		return (ft_strnew(0));
+	return (ft_strsub(s, i, j));
+}

@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rquerino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/18 12:39:37 by rquerino          #+#    #+#             */
-/*   Updated: 2019/06/06 10:36:30 by rquerino         ###   ########.fr       */
+/*   Created: 2019/05/07 11:57:15 by rquerino          #+#    #+#             */
+/*   Updated: 2019/05/14 17:51:38 by rquerino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# include "libft/libft.h"
-# include <stdlib.h>
-# include <unistd.h>
+#include "libft.h"
 
-# define BUFF_SIZE 32
+/*
+ ** Itentical do strchr(), but locates the LAST occurrence of c.
+*/
 
-int		get_next_line(const int fd, char **line);
+char	*ft_strrchr(const char *s, int c)
+{
+	int i;
 
-#endif
+	i = ft_strlen(s);
+	while (i >= 0)
+	{
+		if (*(s + i) == (unsigned char)c)
+			return ((char *)s + i);
+		i--;
+	}
+	return (NULL);
+}

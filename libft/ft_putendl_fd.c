@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rquerino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/18 12:39:37 by rquerino          #+#    #+#             */
-/*   Updated: 2019/06/06 10:36:30 by rquerino         ###   ########.fr       */
+/*   Created: 2019/05/10 09:43:44 by rquerino          #+#    #+#             */
+/*   Updated: 2019/05/15 11:52:30 by rquerino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# include "libft/libft.h"
-# include <stdlib.h>
-# include <unistd.h>
+#include "libft.h"
 
-# define BUFF_SIZE 32
+/*
+ ** Outputs the string s to the file descriptor fd followed by '/n'
+*/
 
-int		get_next_line(const int fd, char **line);
-
-#endif
+void	ft_putendl_fd(char const *s, int fd)
+{
+	ft_putstr_fd(s, fd);
+	ft_putchar_fd('\n', fd);
+}

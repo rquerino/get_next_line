@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_initial_spaces.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rquerino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/18 12:39:37 by rquerino          #+#    #+#             */
-/*   Updated: 2019/06/06 10:36:30 by rquerino         ###   ########.fr       */
+/*   Created: 2019/05/16 17:03:37 by rquerino          #+#    #+#             */
+/*   Updated: 2019/05/16 17:06:15 by rquerino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# include "libft/libft.h"
-# include <stdlib.h>
-# include <unistd.h>
+#include "libft.h"
 
-# define BUFF_SIZE 32
+/*
+ ** Aux function to ft_strtrim. Counts how many spaces are at the start
+ ** of the string.
+*/
 
-int		get_next_line(const int fd, char **line);
+int		ft_initial_spaces(char const *s)
+{
+	int i;
 
-#endif
+	i = 0;
+	while (*(s + i) == ' ' || *(s + i) == '\n' || *(s + i) == '\t')
+		i++;
+	return (i);
+}

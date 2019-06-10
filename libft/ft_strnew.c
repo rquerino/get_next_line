@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rquerino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/18 12:39:37 by rquerino          #+#    #+#             */
-/*   Updated: 2019/06/06 10:36:30 by rquerino         ###   ########.fr       */
+/*   Created: 2019/05/07 16:33:05 by rquerino          #+#    #+#             */
+/*   Updated: 2019/05/15 10:47:20 by rquerino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# include "libft/libft.h"
-# include <stdlib.h>
-# include <unistd.h>
+#include "libft.h"
 
-# define BUFF_SIZE 32
+/*
+ ** Allocates with malloc and returns a "fresh" string ending with '\0'.
+ ** Each character is initialized at '\0'. Returns the string.
+*/
 
-int		get_next_line(const int fd, char **line);
+char	*ft_strnew(size_t size)
+{
+	char *str;
 
-#endif
+	str = (char *)malloc(sizeof(char) * size + 1);
+	if (str == NULL)
+		return (NULL);
+	ft_bzero(str, size + 1);
+	return (str);
+}

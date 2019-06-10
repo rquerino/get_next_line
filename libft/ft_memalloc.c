@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_memalloc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rquerino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/18 12:39:37 by rquerino          #+#    #+#             */
-/*   Updated: 2019/06/06 10:36:30 by rquerino         ###   ########.fr       */
+/*   Created: 2019/05/07 16:16:53 by rquerino          #+#    #+#             */
+/*   Updated: 2019/05/15 10:46:41 by rquerino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# include "libft/libft.h"
-# include <stdlib.h>
-# include <unistd.h>
+#include "libft.h"
 
-# define BUFF_SIZE 32
+/*
+ ** Allocates with malloc and returns a "fresh" memory area initialized with 0.
+ ** If allocation fails, returns NULL.
+*/
 
-int		get_next_line(const int fd, char **line);
+void	*ft_memalloc(size_t size)
+{
+	void *ptr;
 
-#endif
+	ptr = malloc(size);
+	if (ptr == NULL)
+		return (NULL);
+	ft_bzero(ptr, size);
+	return (ptr);
+}

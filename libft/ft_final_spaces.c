@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_final_spaces.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rquerino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/18 12:39:37 by rquerino          #+#    #+#             */
-/*   Updated: 2019/06/06 10:36:30 by rquerino         ###   ########.fr       */
+/*   Created: 2019/05/16 17:06:24 by rquerino          #+#    #+#             */
+/*   Updated: 2019/05/16 17:34:37 by rquerino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# include "libft/libft.h"
-# include <stdlib.h>
-# include <unistd.h>
+#include "libft.h"
 
-# define BUFF_SIZE 32
+/*
+ ** Aux function to ft_strtrim. Returns the last position without a space
+ ** at the end of string s.
+*/
 
-int		get_next_line(const int fd, char **line);
+int		ft_final_spaces(char const *s)
+{
+	int j;
 
-#endif
+	j = ft_strlen(s);
+	if (j == 0)
+		return (0);
+	while (j > 0 && (*(s + j - 1) == ' ' || *(s + j - 1) == '\n'
+			|| *(s + j - 1) == '\t'))
+		j--;
+	return (j);
+}

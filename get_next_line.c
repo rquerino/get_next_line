@@ -30,7 +30,7 @@ static int	ft_check_line(int fd, char **buff)
 		buff[fd] = ft_strjoin(buff[fd], tmp);
 		free(bckp);
 		if (!buff[fd])
-			ft_strdup(tmp);
+			buff[fd] = ft_strdup(tmp);
 		ft_bzero(tmp, BUFF_SIZE);
 	}
 	free(tmp);
@@ -61,7 +61,7 @@ static int	ft_read_line(int fd, char **buff, char **line)
 	if (*buff[fd])
 	{
 		*line = ft_strdup(buff[fd]);
-		buff[fd] = ft_strnew(BUFF_SIZE + 1);
+		ft_strdel(&buff[fd]);
 		return (1);
 	}
 	return (0);

@@ -1,0 +1,20 @@
+Line of 8 characters ending by \n
+
+12345678
+
+Two lines of 8 characters ending by \n
+
+12345678
+12345678
+
+Any number of lines of 8 characters
+
+12345678
+12345678
+12345678
+12345678
+12345678
+12345678
+12345678
+
+read file "basic8.txt"

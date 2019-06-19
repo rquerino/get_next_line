@@ -5,113 +5,78 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rquerino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/10 11:29:01 by rquerino          #+#    #+#             */
-/*   Updated: 2019/06/10 12:25:54 by rquerino         ###   ########.fr       */
+/*   Created: 2019/06/19 14:04:50 by rquerino          #+#    #+#             */
+/*   Updated: 2019/06/19 14:17:19 by rquerino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
 #include <fcntl.h>
 #include <stdio.h>
-
-/* main for testing 1 fd */
-int		main(int argc, char **argv)
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include "get_next_line.h"
+int     main(int ac, char *av[])
 {
-	int fd;
-	char *line;
-	int ret;
-	int i;
+    char    *line;
 
-	if (argc >= 2)
-	{
-		if (access(argv[1], F_OK) == 0)
-		{
-			i = 0;
-			fd = open(argv[1], O_RDONLY);
-			while((ret = get_next_line(fd, &line)) == 1)
-			{
-				i++;
-				printf("MAIN:%d, line>%s\n", ret, line);
-			}
-			close(fd);
-       	}
-	}
-	return (1);
+/* BASIC TESTS */
+
+/* READ FROM STANDARD INPUT */
+    while (get_next_line(0, &line) > 0)
+        printf("%s\n", line);
+    
+/* SINGLE DESCRIPTOR — — — — — — — — — — — — — — — — — — — — — — */
+    /*
+    int     fd1;
+    fd1 = open(av[1], O_RDONLY);
+    while (get_next_line(fd1, &line) > 0)
+        printf("%s\n", line);
+    close(fd1);
+    */
+/* MULTIPLE FILE DESCRIPTORS — — — — — — — — — — — — — — — — — — — — — — —*/
+    /*
+    int      fd1;
+     int      fd2;
+     int      fd3;
+     fd1 = open(av[1], O_RDONLY);
+     fd2 = open(av[2], O_RDONLY);
+     fd3 = open(av[3], O_RDONLY);
+    printf("[%i] $> %s\n", get_next_line(fd1, &line), line);
+    printf("[%i] $> %s\n", get_next_line(fd2, &line), line);
+    printf("[%i] $> %s\n", get_next_line(fd3, &line), line);
+    printf("[%i] $> %s\n", get_next_line(fd1, &line), line);
+    printf("[%i] $> %s\n", get_next_line(fd2, &line), line);
+    printf("[%i] $> %s\n", get_next_line(fd3, &line), line);
+    printf("[%i] $> %s\n", get_next_line(fd1, &line), line);
+    printf("[%i] $> %s\n", get_next_line(fd2, &line), line);
+    printf("[%i] $> %s\n", get_next_line(fd3, &line), line);
+    printf("[%i] $> %s\n", get_next_line(fd1, &line), line);
+    printf("[%i] $> %s\n", get_next_line(fd2, &line), line);
+    printf("[%i] $> %s\n", get_next_line(fd3, &line), line);
+    printf("[%i] $> %s\n", get_next_line(fd1, &line), line);
+    printf("[%i] $> %s\n", get_next_line(fd2, &line), line);
+    printf("[%i] $> %s\n", get_next_line(fd3, &line), line);
+    printf("[%i] $> %s\n", get_next_line(fd1, &line), line);
+    printf("[%i] $> %s\n", get_next_line(fd2, &line), line);
+    printf("[%i] $> %s\n", get_next_line(fd3, &line), line);
+    printf("[%i] $> %s\n", get_next_line(fd1, &line), line);
+    printf("[%i] $> %s\n", get_next_line(fd2, &line), line);
+    printf("[%i] $> %s\n", get_next_line(fd3, &line), line);
+    printf("[%i] $> %s\n", get_next_line(fd1, &line), line);
+    printf("[%i] $> %s\n", get_next_line(fd2, &line), line);
+    printf("[%i] $> %s\n", get_next_line(fd3, &line), line);
+    printf("[%i] $> %s\n", get_next_line(fd1, &line), line);
+    printf("[%i] $> %s\n", get_next_line(fd2, &line), line);
+    printf("[%i] $> %s\n", get_next_line(fd3, &line), line);
+    printf("[%i] $> %s\n", get_next_line(fd1, &line), line);
+    printf("[%i] $> %s\n", get_next_line(fd2, &line), line);
+    printf("[%i] $> %s\n", get_next_line(fd3, &line), line);
+    close(fd1);
+    close(fd2);
+    close(fd3);
+    */
+    (void)ac;
+    (void)av;
+    return (0);
 }
-
-/* main for testing multiple fds */
-/*
-int		main(int argc, char **argv)
-{
-	int fd;
- 	int fd2;
-	char *line;
-	int ret;
-	int i;
-
-	if (argc >= 2)
-	{
-		if (access(argv[1], F_OK) == 0)
-		{
-			i = 0;
-			fd = open(argv[1], O_RDONLY);
-			while((ret = get_next_line(fd, &line)) == 1)
-			{
-				i++;
-				printf("MAIN:%d, line>%s\n", ret, line);
-			}
-			close(fd);
-			i = 0;
-			fd2 = open(argv[2], O_RDONLY);
-			while((ret = get_next_line(fd2, &line)) == 1)
-			{
-				i++;
-				printf("MAIN:%d, line>%s\n", ret, line);
-			}
-			close(fd2);
-		}
-	}
-	return (1);
-}
-*/
-/* main for testing multiple fds calling gnl on first 3 lines from every file */
-/*
-int		main(int argc, char **argv)
-{
-	int fd;
- 	int fd2;
-	char *line;
-	int ret;
-	int i;
-
-	if (argc >= 2)
-	{
-		if (access(argv[1], F_OK) == 0)
-		{
-			fd = open(argv[1], O_RDONLY);
-			fd2 = open(argv[2], O_RDONLY);
-			ret = get_next_line(fd, &line);
-			if (ret == 1)
-				printf("MAIN:%d, line1>%s\n", ret, line);
-			ret = get_next_line(fd2, &line);
-			if (ret == 1)
-				printf("MAIN:%d, line1>%s\n", ret, line);
-			ret = get_next_line(fd, &line);
-			if (ret == 1)
-				printf("MAIN:%d, line2>%s\n", ret, line);
-			ret = get_next_line(fd2, &line);
-			if (ret == 1)
-				printf("MAIN:%d, line2>%s\n", ret, line);
-			ret = get_next_line(fd, &line);
-			if (ret == 1)
-				printf("MAIN:%d, line3>%s\n", ret, line);
-			ret = get_next_line(fd2, &line);
-			if (ret == 1)
-				printf("MAIN:%d, line3>%s\n", ret, line);
-			close(fd);
-			close(fd2);
-		}
-	}
-	return (1);
-}
-*/
